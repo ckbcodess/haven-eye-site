@@ -8,6 +8,7 @@ import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 
+// Main home page for Haven Eye
 export default function Home() {
   return (
     <main>
