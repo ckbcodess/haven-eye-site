@@ -169,11 +169,11 @@ export default function Home() {
         <div className="w-full max-w-[1400px] mx-auto px-4 md:px-[96px]">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-12 items-center">
             <div className="w-full max-w-[615px] mx-auto lg:mx-0 flex flex-col items-center lg:items-start text-center lg:text-left">
-              <h1 className="text-[38px] sm:text-[44px] md:text-[54px] font-heading font-medium leading-[1.1] md:leading-[1.2] tracking-[-1.5px] md:tracking-[-2px] text-[#12171a] mb-4 md:mb-6 text-center lg:text-left">
+              <h1 className="text-[34px] sm:text-[40px] md:text-[54px] font-heading font-medium leading-[1.15] md:leading-[1.2] tracking-[-1px] md:tracking-[-2px] text-[#12171a] mb-4 md:mb-6 text-center lg:text-left">
                 Expert eye care &<br />
                 <span className="text-[#12171a]">modern precision.</span>
               </h1>
-              <p className="text-lg md:text-[19px] text-[#5e6468] leading-[1.6] max-w-[500px] mb-6 md:mb-8 text-center lg:text-left mx-auto lg:mx-0">
+              <p className="text-base sm:text-lg md:text-[19px] text-[#5e6468] leading-[1.6] max-w-[500px] mb-6 md:mb-8 text-center lg:text-left mx-auto lg:mx-0">
                 A straightforward approach to vision. Comprehensive exams, designer eyewear, and specialized medical treatments.
               </p>
 
@@ -251,16 +251,16 @@ export default function Home() {
       <section className="py-20 bg-[#fafdff]">
         <div className="container mx-auto px-6 md:px-[96px]">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8 mb-10 md:mb-16">
-            <div className="space-y-4 md:space-y-6">
-              <div className="flex items-center gap-3 text-[#00218e] font-medium text-[18px] md:text-[20px]">
+            <div className="space-y-4 md:space-y-6 text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start gap-3 text-[#00218e] font-medium text-[16px] md:text-[20px]">
                 <div className="w-2 h-2 rounded-full bg-[#00218e]" />
-                <span>Services</span>
+                <span>Our Services</span>
               </div>
-              <h2 className="text-3xl md:text-[48px] font-heading leading-[1.2] tracking-tight">
-                Our Eye Care Services
+              <h2 className="text-[28px] md:text-[48px] font-heading leading-[1.2] tracking-tight">
+                Clinical excellence,<br className="hidden md:block" /> personalized for you.
               </h2>
             </div>
-            <p className="text-base md:text-[20px] text-[#5e6468] leading-relaxed max-w-[460px]">
+            <p className="text-base md:text-[20px] text-[#5e6468] leading-relaxed max-w-[460px] text-center md:text-left mx-auto md:mx-0">
               Comprehensive eye care services tailored to meet all your vision and eye health needs.
             </p>
           </div>
@@ -273,8 +273,8 @@ export default function Home() {
                     {service.icon}
                   </div>
                   <div className="space-y-3">
-                    <CardTitle className="text-xl font-semibold text-[#2e2e38] tracking-tight">{service.title}</CardTitle>
-                    <CardDescription className="text-base text-[#71717a] leading-relaxed">
+                    <CardTitle className="text-lg md:text-xl font-semibold text-[#2e2e38] tracking-tight">{service.title}</CardTitle>
+                    <CardDescription className="text-[14px] md:text-base text-[#71717a] leading-relaxed">
                       {service.description}
                     </CardDescription>
                   </div>
@@ -372,12 +372,14 @@ function WhyHaven() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Only auto-switch on desktop (lg breakpoint and above)
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) return;
+
     const interval = setInterval(() => {
-      // Only auto-switch on desktop or if not being scrolled
       setActiveReasonIndex(prev => (prev + 1) % REASONS.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [activeReasonIndex]);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const container = e.currentTarget;
@@ -394,15 +396,15 @@ function WhyHaven() {
       <div className="container mx-auto px-4 md:px-[96px]">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div className="space-y-6">
-            <div className="flex items-center gap-3 text-[#00218e] font-medium text-[20px]">
+            <div className="flex items-center gap-3 text-[#00218e] font-medium text-[16px] md:text-[20px]">
               <div className="w-2 h-2 rounded-full bg-[#00218e]" />
               <span>Why Haven Eye</span>
             </div>
-            <h2 className="text-4xl md:text-[48px] font-heading leading-[1.2] tracking-tight max-w-[627px]">
+            <h2 className="text-[28px] sm:text-3xl md:text-[48px] font-heading leading-[1.2] tracking-tight max-w-[627px]">
               Your vision is our primary focus.
             </h2>
           </div>
-          <p className="text-lg md:text-[20px] text-[#5e6468] leading-relaxed max-w-[465px]">
+          <p className="text-base sm:text-lg md:text-[20px] text-[#5e6468] leading-relaxed max-w-[465px]">
             From routine eye exams to specialised treatments, every service is bookable online.
           </p>
         </div>
@@ -471,9 +473,9 @@ function WhyHaven() {
                     className="object-cover"
                   />
                 </div>
-                <div className="space-y-3">
-                  <h4 className="text-[20px] font-medium text-[#12171a]">{reason.title}</h4>
-                  <p className="text-[#5e6468] text-[15px] leading-relaxed">
+                <div className="space-y-2">
+                  <h4 className="text-[18px] md:text-[20px] font-medium text-[#12171a]">{reason.title}</h4>
+                  <p className="text-[#5e6468] text-[14px] md:text-[15px] leading-relaxed">
                     {reason.description}
                   </p>
                 </div>

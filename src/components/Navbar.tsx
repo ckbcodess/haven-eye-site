@@ -101,7 +101,7 @@ export default function Navbar() {
                   height={34} 
                   priority
                 />
-                <span className="text-xl font-bold tracking-tight text-[#12171a]">Haven Eye</span>
+                <span className="text-xl font-semibold tracking-tight text-[#12171a]">Haven Eye</span>
               </Link>
             </div>
 
@@ -208,7 +208,7 @@ export default function Navbar() {
             <div className="flex justify-between items-center mb-12">
               <Link href="/" className="flex items-center gap-3" onClick={() => setIsMenuOpen(false)}>
                 <Image src="/logo.svg" alt="Logo" width={32} height={32} />
-                <span className="text-xl font-bold tracking-tight">Haven Eye</span>
+                <span className="text-xl font-semibold tracking-tight">Haven Eye</span>
               </Link>
               <button onClick={() => setIsMenuOpen(false)}>
                 <X className="w-8 h-8" />
