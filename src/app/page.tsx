@@ -265,10 +265,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div 
-            className="grid gap-6" 
-            style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))' }}
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {SERVICES.map((service, i) => (
               <Card key={i} className="border border-transparent shadow-[0_2px_10px_-4px_rgba(0,0,0,0.02)] bg-white p-6 md:p-8 flex flex-col rounded-[16px] hover:border-[#304aec]/15 hover:shadow-[0_8px_30px_-4px_rgba(48,74,236,0.08)] transition-all duration-400 ease-out group/service cursor-pointer">
                 <div className="space-y-6 flex-1">

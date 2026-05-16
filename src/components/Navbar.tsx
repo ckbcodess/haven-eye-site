@@ -69,16 +69,16 @@ export default function Navbar() {
       scrolled ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-transparent"
     )}>
       {promoVisible && (
-        <div className="bg-[#12171a] text-white py-2.5 px-4 relative flex items-center justify-center gap-4 overflow-hidden">
-          <p className="text-[13px] tracking-[0.26px] text-center">
+        <div className="bg-[#12171a] text-white py-2 px-10 relative flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-4 overflow-hidden min-h-[40px]">
+          <p className="text-[12px] sm:text-[13px] tracking-[0.26px] text-center">
             🎁 <strong>Free eye test</strong> when you book before May 31
           </p>
-          <Link href="#book" className="text-[13px] underline underline-offset-4 hover:text-white/80 transition-colors">
+          <Link href="#book" className="text-[12px] sm:text-[13px] underline underline-offset-4 hover:text-white/80 transition-colors shrink-0">
             Book now →
           </Link>
           <button 
             onClick={() => setPromoVisible(false)}
-            className="absolute right-4 p-1 opacity-60 hover:opacity-100 transition-opacity"
+            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-1 opacity-60 hover:opacity-100 transition-opacity"
             aria-label="Close promo"
           >
             <X className="w-4 h-4" />
