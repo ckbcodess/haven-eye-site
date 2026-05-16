@@ -274,13 +274,13 @@ export default function Home() {
                   </div>
                   <div className="space-y-3">
                     <CardTitle className="text-xl font-semibold text-[#2e2e38] tracking-tight">{service.title}</CardTitle>
-                    <CardDescription className="text-base text-[#71717a] leading-relaxed transition-colors duration-400 group-hover/service:text-[#5e6468]">
+                    <CardDescription className="text-base text-[#71717a] leading-relaxed">
                       {service.description}
                     </CardDescription>
                   </div>
                 </div>
                 <div className="flex justify-between items-center pt-4 border-t border-slate-50 mt-16 transition-colors duration-400 group-hover/service:border-[#304aec]/10">
-                  <span className="text-sm font-medium text-[#2e2e38] transition-colors duration-400 group-hover/service:text-[#304aec]">From {service.price}</span>
+                  <span className="text-sm font-medium text-[#2e2e38]">From {service.price}</span>
                   <span className="text-sm text-[#71717a]">{service.duration}</span>
                 </div>
               </Card>
@@ -291,8 +291,8 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50 transition-opacity duration-400 group-hover/explore:opacity-80" />
               <div className="absolute -right-12 -top-12 w-48 h-48 bg-white/5 rounded-full blur-2xl group-hover/explore:bg-white/10 transition-colors duration-500 ease-out" />
               <div className="relative space-y-4">
-                <CardTitle className="text-xl font-semibold tracking-tight text-white group-hover/explore:translate-x-1 transition-transform duration-400 ease-out">Explore all services</CardTitle>
-                <CardDescription className="text-base text-white/70 leading-relaxed group-hover/explore:text-white/90 transition-colors duration-400 ease-out">
+                <CardTitle className="text-xl font-semibold tracking-tight text-white">Explore all services</CardTitle>
+                <CardDescription className="text-base text-white/70 leading-relaxed">
                   Haven Eye is trusted for their quality care & easy experiences.
                 </CardDescription>
               </div>
