@@ -195,7 +195,7 @@ export default function Home() {
                     backgroundRepeat: 'repeat-x'
                   }} 
                 />
-                <div className="flex justify-between lg:justify-start items-center gap-2 sm:gap-6 md:gap-[48px] pt-6 md:pt-8 w-full text-left">
+                <div className="flex flex-wrap justify-between lg:justify-start items-center gap-x-2 gap-y-4 sm:gap-6 md:gap-[48px] pt-6 md:pt-8 w-full text-left">
                   <div className="flex items-start gap-3 md:gap-[16px] shrink-0">
                     <Star className="w-3.5 h-3.5 md:w-4 md:h-4 mt-1" style={{ fill: 'url(#star-gradient)', stroke: 'url(#star-gradient)' }} />
                     <div className="space-y-1 md:space-y-2">

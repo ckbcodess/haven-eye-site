@@ -19,6 +19,7 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -80,7 +81,7 @@ export default function Navbar() {
   return (
     <div className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-      scrolled ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-transparent"
+      scrolled ? "bg-white/60 backdrop-blur-xl shadow-sm" : "bg-transparent"
     )}>
       {promoVisible && (
         <div className="bg-[#12171a] text-white py-2 px-10 relative flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-4 overflow-hidden min-h-[40px]">
@@ -90,7 +91,7 @@ export default function Navbar() {
           <Link href="#book" className="text-[12px] sm:text-[13px] underline underline-offset-4 hover:text-white/80 transition-colors shrink-0">
             Book now →
           </Link>
-          <button 
+          <button
             onClick={() => setPromoVisible(false)}
             className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-1 opacity-60 hover:opacity-100 transition-opacity"
             aria-label="Close promo"
@@ -99,7 +100,7 @@ export default function Navbar() {
           </button>
         </div>
       )}
-        <header className={cn(
+      <header className={cn(
         "transition-all duration-300",
         scrolled ? "border-b border-[#e8ecee]/50" : "border-b border-transparent"
       )}>
@@ -108,14 +109,14 @@ export default function Navbar() {
             {/* Logo Column */}
             <div className="flex justify-start">
               <Link href="/" className="flex items-center gap-3 shrink-0">
-                <Image 
-                  src="/logo.svg" 
-                  alt="Haven Eye Logo" 
-                  width={34} 
-                  height={34} 
+                <Image
+                  src="/logo.svg"
+                  alt="Haven Eye Logo"
+                  width={34}
+                  height={34}
                   priority
                 />
-                <span className="text-xl font-semibold tracking-tight text-[#12171a]">Haven Eye</span>
+                <span className="text-xl font-semibold tracking-tight text-[#12171a] hidden min-[400px]:block">Haven Eye</span>
               </Link>
             </div>
 
@@ -178,13 +179,13 @@ export default function Navbar() {
                 <Button variant="ghost" asChild className="text-[15px] font-medium text-[#12171a]">
                   <Link href="#location">Find a store</Link>
                 </Button>
-                <Button 
-                  asChild 
+                <Button
+                  asChild
                   variant={scrolled ? "default" : "ghost"}
                   className={cn(
                     "rounded-full px-6 h-[40px] transition-all duration-300",
-                    scrolled 
-                      ? "bg-[#304aec] hover:bg-[#304aec]/90 text-white shadow-sm" 
+                    scrolled
+                      ? "bg-[#304aec] hover:bg-[#304aec]/90 text-white shadow-sm"
                       : "text-[#12171a] font-medium"
                   )}
                 >
@@ -197,9 +198,9 @@ export default function Navbar() {
                 "md:hidden transition-all duration-300 transform",
                 scrolled ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4 pointer-events-none"
               )}>
-                <Button 
-                  asChild 
-                  size="sm" 
+                <Button
+                  asChild
+                  size="sm"
                   className="rounded-full bg-[#304aec] hover:bg-[#304aec]/90 text-white text-[13px] font-medium h-[32px] px-4 shadow-sm"
                 >
                   <Link href="#book">Book appointment</Link>
@@ -217,63 +218,68 @@ export default function Navbar() {
                 </SheetTrigger>
                 <SheetContent side="right" className="w-full sm:max-w-none p-0 border-none bg-white hide-close">
                   <div className="flex flex-col h-full">
-                    <SheetHeader className="p-6 border-b border-[#e8ecee]/50 flex-row items-center justify-end space-y-0 relative">
+                    <SheetHeader className="p-4 border-b border-[#e8ecee]/50 flex-row items-center justify-end space-y-0 relative">
                       <SheetTitle className="sr-only">Menu</SheetTitle>
+                      <SheetDescription className="sr-only">
+                        Navigate through our services and products.
+                      </SheetDescription>
                       <SheetClose className="p-2 -mr-2">
                         <X className="w-6 h-6 text-[#12171a]" />
                       </SheetClose>
                     </SheetHeader>
-                    
-                    <div className="flex-1 overflow-y-auto p-6">
-                      <nav className="flex flex-col gap-2">
+
+                    <div className="flex-1 overflow-y-auto p-4">
+                      <nav className="flex flex-col">
                         <MobileAccordion type="single" collapsible className="w-full">
                           <AccordionItem value="services" className="border-none">
                             <AccordionTrigger className="text-[20px] font-semibold hover:no-underline py-4">
                               Services
                             </AccordionTrigger>
-                            <AccordionContent>
-                              <div className="grid gap-8 pt-4 pb-4">
+                            <AccordionContent className="pb-2">
+                              <MobileAccordion type="single" collapsible className="w-full">
                                 {SERVICE_CATEGORIES.map((cat, i) => (
-                                  <div key={i} className="space-y-4">
-                                    <h4 className="text-[12px] font-bold text-[#5e6468] tracking-[1.5px] uppercase">
+                                  <AccordionItem key={i} value={`cat-${i}`} className="border-none">
+                                    <AccordionTrigger className="text-[16px] font-medium py-4 pl-4 text-[#12171a]/80 hover:no-underline hover:text-[#304aec]">
                                       {cat.title}
-                                    </h4>
-                                    <ul className="space-y-4 pl-2">
-                                      {cat.services.map((svc, j) => (
-                                        <li key={j}>
-                                          <Link
-                                            href={svc.href}
-                                            className="text-[16px] text-[#12171a] font-medium"
-                                            onClick={() => setIsMenuOpen(false)}
-                                          >
-                                            {svc.name}
-                                          </Link>
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </div>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="pl-8 pb-4">
+                                      <ul className="space-y-4">
+                                        {cat.services.map((svc, j) => (
+                                          <li key={j}>
+                                            <Link
+                                              href={svc.href}
+                                              className="text-[15px] text-[#5e6468] hover:text-[#304aec] transition-colors block"
+                                              onClick={() => setIsMenuOpen(false)}
+                                            >
+                                              {svc.name}
+                                            </Link>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </AccordionContent>
+                                  </AccordionItem>
                                 ))}
-                              </div>
+                              </MobileAccordion>
                             </AccordionContent>
                           </AccordionItem>
                         </MobileAccordion>
-                        
-                        <Link 
-                          href="#eyewear" 
+
+                        <Link
+                          href="#eyewear"
                           className="text-[20px] font-semibold py-4 border-b border-transparent"
                           onClick={() => setIsMenuOpen(false)}
                         >
                           Eyewear
                         </Link>
-                        <Link 
-                          href="#faq" 
+                        <Link
+                          href="#faq"
                           className="text-[20px] font-semibold py-4 border-b border-transparent"
                           onClick={() => setIsMenuOpen(false)}
                         >
                           FAQ
                         </Link>
-                        <Link 
-                          href="#contact" 
+                        <Link
+                          href="#contact"
                           className="text-[20px] font-semibold py-4 border-b border-transparent"
                           onClick={() => setIsMenuOpen(false)}
                         >
@@ -282,11 +288,11 @@ export default function Navbar() {
                       </nav>
                     </div>
 
-                    <div className="p-6 border-t border-[#e8ecee]/50 flex flex-col gap-4 bg-slate-50/50">
-                      <Button asChild size="lg" className="rounded-full w-full bg-[#304aec] text-white h-[56px] text-lg font-medium shadow-md">
+                    <div className="p-4 border-t border-[#e8ecee]/50 flex flex-col gap-3 bg-slate-50/50">
+                      <Button asChild size="lg" className="rounded-full w-full bg-[#304aec] text-white h-[52px] text-lg font-medium shadow-md">
                         <Link href="#book" onClick={() => setIsMenuOpen(false)}>Book Appointment</Link>
                       </Button>
-                      <Button variant="outline" asChild size="lg" className="rounded-full w-full h-[56px] text-lg font-medium border-[#e4e4e7] bg-white">
+                      <Button variant="outline" asChild size="lg" className="rounded-full w-full h-[52px] text-lg font-medium border-[#e4e4e7] bg-white">
                         <Link href="tel:0557767766">Call Us Now</Link>
                       </Button>
                     </div>
