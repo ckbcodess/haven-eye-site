@@ -89,7 +89,7 @@ export default function Navbar() {
         "transition-all duration-300",
         scrolled ? "border-b border-[#e8ecee]/50" : "border-b border-transparent"
       )}>
-        <div className="container mx-auto px-6 md:px-[96px]">
+        <div className="container mx-auto px-4 md:px-[96px]">
           <div className="grid grid-cols-2 md:grid-cols-[200px_1fr_auto] lg:grid-cols-[250px_1fr_250px] h-[84px] items-center gap-4">
             {/* Logo Column */}
             <div className="flex justify-start">
@@ -173,6 +173,20 @@ export default function Navbar() {
                       ? "bg-[#304aec] hover:bg-[#304aec]/90 text-white shadow-sm" 
                       : "text-[#12171a] font-medium"
                   )}
+                >
+                  <Link href="#book">Book appointment</Link>
+                </Button>
+              </div>
+
+              {/* Mobile CTA (Scroll triggered) */}
+              <div className={cn(
+                "md:hidden transition-all duration-300 transform",
+                scrolled ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4 pointer-events-none"
+              )}>
+                <Button 
+                  asChild 
+                  size="sm" 
+                  className="rounded-full bg-[#304aec] hover:bg-[#304aec]/90 text-white text-[13px] font-medium h-[32px] px-4 shadow-sm"
                 >
                   <Link href="#book">Book appointment</Link>
                 </Button>

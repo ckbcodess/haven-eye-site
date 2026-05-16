@@ -214,10 +214,12 @@ section {
   color: var(--accent-fg);
 }
 
-.btn-primary:hover {
-  filter: brightness(1.1);
-  box-shadow: 0 12px 32px -8px rgba(48, 74, 236, 0.25);
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .btn-primary:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 12px 32px -8px rgba(48, 74, 236, 0.25);
+    transform: translateY(-1px);
+  }
 }
 
 .btn-secondary {
@@ -228,10 +230,12 @@ section {
   -webkit-backdrop-filter: blur(12px);
 }
 
-.btn-secondary:hover {
-  border-color: var(--accent-color);
-  color: var(--accent-color);
-  background: #ffffff;
+@media (hover: hover) {
+  .btn-secondary:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background: #ffffff;
+  }
 }
 
 .btn-ghost {
@@ -240,9 +244,11 @@ section {
   color: var(--ink-soft);
 }
 
-.btn-ghost:hover {
-  border-color: var(--ink);
-  color: var(--ink);
+@media (hover: hover) {
+  .btn-ghost:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
 }
 
 .btn-lg {
@@ -257,8 +263,10 @@ section {
   transition: transform 0.3s ease;
 }
 
-.btn:hover.arrow::after {
-  transform: translateX(4px);
+@media (hover: hover) {
+  .btn:hover .arrow::after {
+    transform: translateX(4px);
+  }
 }
 
 @media (max-width: 900px) {
