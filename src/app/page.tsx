@@ -195,15 +195,15 @@ export default function Home() {
                     backgroundRepeat: 'repeat-x'
                   }} 
                 />
-                <div className="flex justify-between lg:justify-start items-center gap-2 sm:gap-6 md:gap-[48px] pt-6 md:pt-8 w-full">
-                  <div className="flex items-start gap-2 md:gap-[16px] shrink-0">
+                <div className="flex justify-between lg:justify-start items-center gap-2 sm:gap-6 md:gap-[48px] pt-6 md:pt-8 w-full text-left">
+                  <div className="flex items-start gap-3 md:gap-[16px] shrink-0">
                     <Star className="w-3.5 h-3.5 md:w-4 md:h-4 mt-1" style={{ fill: 'url(#star-gradient)', stroke: 'url(#star-gradient)' }} />
                     <div className="space-y-1 md:space-y-2">
                       <div className="font-semibold text-[14px] sm:text-[16px] md:text-[18px] leading-none">4.9/5</div>
                       <p className="text-[11px] sm:text-[12px] md:text-[13px] text-[#5e6468] leading-[1.2] md:leading-[20.8px]">Patient rating</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-2 md:gap-[16px] shrink-0">
+                  <div className="flex items-start gap-3 md:gap-[16px] shrink-0">
                     <div className="mt-1">
                       <svg width="11" height="14" viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-3 h-[14px] md:w-3.5 md:h-[18px]">
                         <path d="M5.33333 6.66667C5.7 6.66667 6.01389 6.53611 6.275 6.275C6.53611 6.01389 6.66667 5.7 6.66667 5.33333C6.66667 4.96667 6.53611 4.65278 6.275 4.39167C6.01389 4.13056 5.7 4 5.33333 4C4.96667 4 4.65278 4.13056 4.39167 4.39167C4.13056 4.65278 4 4.96667 4 5.33333C4 5.7 4.13056 6.01389 4.39167 6.275C4.65278 6.53611 4.96667 6.66667 5.33333 6.66667ZM5.33333 13.3333C3.54444 11.8111 2.20833 10.3972 1.325 9.09167C0.441667 7.78611 0 6.57778 0 5.46667C0 3.8 0.536111 2.47222 1.60833 1.48333C2.68056 0.494444 3.92222 0 5.33333 0C6.74444 0 7.98611 0.494444 9.05833 1.48333C10.1306 2.47222 10.6667 3.8 10.6667 5.46667C10.6667 6.57778 10.225 7.78611 9.34167 9.09167C8.45833 10.3972 7.12222 11.8111 5.33333 13.3333Z" fill="url(#location-gradient-new)" />
@@ -251,8 +251,8 @@ export default function Home() {
       <section className="py-20 bg-[#fafdff]">
         <div className="container mx-auto px-6 md:px-[96px]">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8 mb-10 md:mb-16">
-            <div className="space-y-4 md:space-y-6 text-center md:text-left">
-              <div className="flex items-center justify-center md:justify-start gap-3 text-[#00218e] font-medium text-[16px] md:text-[20px]">
+            <div className="space-y-4 md:space-y-6 text-left">
+              <div className="flex items-center justify-start gap-3 text-[#00218e] font-medium text-[16px] md:text-[20px]">
                 <div className="w-2 h-2 rounded-full bg-[#00218e]" />
                 <span>Our Services</span>
               </div>
@@ -260,7 +260,7 @@ export default function Home() {
                 Clinical excellence,<br className="hidden md:block" /> personalized for you.
               </h2>
             </div>
-            <p className="text-base md:text-[20px] text-[#5e6468] leading-relaxed max-w-[460px] text-center md:text-left mx-auto md:mx-0">
+            <p className="text-base md:text-[20px] text-[#5e6468] leading-relaxed max-w-[460px] text-left">
               Comprehensive eye care services tailored to meet all your vision and eye health needs.
             </p>
           </div>
@@ -339,8 +339,8 @@ export default function Home() {
           <div className="bg-[#304aec] rounded-[40px] px-12 md:px-24 py-32 text-center text-white relative overflow-hidden shadow-lg">
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50" />
             <div className="relative z-10 max-w-3xl mx-auto space-y-8">
-              <h2 className="text-[48px] md:text-[48px] font-heading font-medium leading-[1.2] tracking-tight">Ready to see clearly?</h2>
-              <p className="text-lg md:text-[20px] opacity-90 max-w-2xl mx-auto leading-[1.4]">
+              <h2 className="text-[26px] sm:text-[32px] md:text-[48px] font-heading font-medium leading-[1.2] tracking-tight whitespace-nowrap">Ready to see clearly?</h2>
+              <p className="text-base md:text-[20px] opacity-90 max-w-2xl mx-auto leading-[1.4]">
                 Book your appointment online in less than 2 minutes. We&apos;re open Mon–Sat at Ridge.
               </p>
               <div className="flex flex-col md:flex-row justify-center gap-4 pt-4">
@@ -507,11 +507,11 @@ function ProductsSection({ category, setCategory }: { category: 'eyewear' | 'hea
       <div className="container mx-auto px-4 md:px-[96px]">
         <div className="mb-12 space-y-10">
           <div className="space-y-6">
-            <div className="flex items-center gap-[12px] text-[#00218e] font-medium text-[20px]">
+            <div className="flex items-center gap-[12px] text-[#00218e] font-medium text-[16px] md:text-[20px]">
               <div className="w-2 h-2 rounded-full bg-[#00218e]" />
               <span>Our Products</span>
             </div>
-            <h2 className="text-4xl md:text-[42px] font-heading font-medium leading-[1.2] tracking-[-1px] max-w-[800px] text-[#12171a]">
+            <h2 className="text-[28px] md:text-[42px] font-heading font-medium leading-[1.2] tracking-[-1px] max-w-[800px] text-[#12171a]">
               A look at our best selling products
             </h2>
           </div>
@@ -543,7 +543,7 @@ function ProductsSection({ category, setCategory }: { category: 'eyewear' | 'hea
         <div className="grid md:grid-cols-3 gap-6">
           {PRODUCTS_DATA[category].map((product) => (
             <Link key={product.id} href={product.link} className="group/card block h-full">
-              <div className="bg-white border border-[#f1f5f9] rounded-[12px] p-[33px] flex flex-col items-center shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] text-center h-full transition-all duration-300 hover:shadow-md hover:border-[#304aec]/10">
+              <div className="bg-white border border-[#f1f5f9] rounded-[12px] p-6 md:p-[33px] flex flex-col items-start shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] text-left h-full transition-all duration-300 hover:shadow-md hover:border-[#304aec]/10">
                 <div className="w-full relative h-[167px] mb-4 transition-transform duration-500 group-hover/card:scale-105">
                   <Image 
                     src={product.image} 
@@ -552,11 +552,11 @@ function ProductsSection({ category, setCategory }: { category: 'eyewear' | 'hea
                     className="object-contain mix-blend-multiply" 
                   />
                 </div>
-                <div className="space-y-3 mb-6">
-                  <h3 className="text-[20px] font-semibold text-[#2e2e38] tracking-[-0.4px] leading-tight">{product.title}</h3>
+                <div className="space-y-2 mb-6">
+                  <h3 className="text-[18px] md:text-[20px] font-semibold text-[#2e2e38] tracking-[-0.4px] leading-tight">{product.title}</h3>
                   <p className="text-[14px] text-[#71717a] leading-relaxed">{product.description}</p>
                 </div>
-                <div className="h-auto p-0 text-[#2e2e38] flex items-center gap-1.5 font-semibold text-[15px] mt-auto">
+                <div className="h-auto p-0 text-[#2e2e38] flex items-center gap-1.5 font-semibold text-[15px] mt-auto group-hover/card:text-[#304aec] transition-colors">
                   {product.cta} <ChevronRight className="w-4 h-4 transition-transform group-hover/card:translate-x-1" />
                 </div>
               </div>

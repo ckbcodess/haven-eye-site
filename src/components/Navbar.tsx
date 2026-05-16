@@ -14,7 +14,21 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { X, ChevronDown } from "lucide-react";
+import { X, ChevronDown, Menu } from "lucide-react";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  Accordion as MobileAccordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const SERVICE_CATEGORIES = [
   {
@@ -192,43 +206,96 @@ export default function Navbar() {
                 </Button>
               </div>
 
-              {/* Mobile Burger */}
-              <button className="md:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                <div className="w-6 h-0.5 bg-[#12171a] mb-1.5" />
-                <div className="w-6 h-0.5 bg-[#12171a] mb-1.5" />
-                <div className="w-6 h-0.5 bg-[#12171a]" />
-              </button>
+              {/* Mobile Menu */}
+              <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+                <SheetTrigger asChild>
+                  <button className="md:hidden p-2" aria-label="Open menu">
+                    <div className="w-6 h-0.5 bg-[#12171a] mb-1.5" />
+                    <div className="w-6 h-0.5 bg-[#12171a] mb-1.5" />
+                    <div className="w-6 h-0.5 bg-[#12171a]" />
+                  </button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-full sm:max-w-none p-0 border-none bg-white hide-close">
+                  <div className="flex flex-col h-full">
+                    <SheetHeader className="p-6 border-b border-[#e8ecee]/50 flex-row items-center justify-end space-y-0 relative">
+                      <SheetTitle className="sr-only">Menu</SheetTitle>
+                      <SheetClose className="p-2 -mr-2">
+                        <X className="w-6 h-6 text-[#12171a]" />
+                      </SheetClose>
+                    </SheetHeader>
+                    
+                    <div className="flex-1 overflow-y-auto p-6">
+                      <nav className="flex flex-col gap-2">
+                        <MobileAccordion type="single" collapsible className="w-full">
+                          <AccordionItem value="services" className="border-none">
+                            <AccordionTrigger className="text-[20px] font-semibold hover:no-underline py-4">
+                              Services
+                            </AccordionTrigger>
+                            <AccordionContent>
+                              <div className="grid gap-8 pt-4 pb-4">
+                                {SERVICE_CATEGORIES.map((cat, i) => (
+                                  <div key={i} className="space-y-4">
+                                    <h4 className="text-[12px] font-bold text-[#5e6468] tracking-[1.5px] uppercase">
+                                      {cat.title}
+                                    </h4>
+                                    <ul className="space-y-4 pl-2">
+                                      {cat.services.map((svc, j) => (
+                                        <li key={j}>
+                                          <Link
+                                            href={svc.href}
+                                            className="text-[16px] text-[#12171a] font-medium"
+                                            onClick={() => setIsMenuOpen(false)}
+                                          >
+                                            {svc.name}
+                                          </Link>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                ))}
+                              </div>
+                            </AccordionContent>
+                          </AccordionItem>
+                        </MobileAccordion>
+                        
+                        <Link 
+                          href="#eyewear" 
+                          className="text-[20px] font-semibold py-4 border-b border-transparent"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Eyewear
+                        </Link>
+                        <Link 
+                          href="#faq" 
+                          className="text-[20px] font-semibold py-4 border-b border-transparent"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          FAQ
+                        </Link>
+                        <Link 
+                          href="#contact" 
+                          className="text-[20px] font-semibold py-4 border-b border-transparent"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Contact Us
+                        </Link>
+                      </nav>
+                    </div>
+
+                    <div className="p-6 border-t border-[#e8ecee]/50 flex flex-col gap-4 bg-slate-50/50">
+                      <Button asChild size="lg" className="rounded-full w-full bg-[#304aec] text-white h-[56px] text-lg font-medium shadow-md">
+                        <Link href="#book" onClick={() => setIsMenuOpen(false)}>Book Appointment</Link>
+                      </Button>
+                      <Button variant="outline" asChild size="lg" className="rounded-full w-full h-[56px] text-lg font-medium border-[#e4e4e7] bg-white">
+                        <Link href="tel:0557767766">Call Us Now</Link>
+                      </Button>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </div>
-
-        {/* Mobile Menu (Overlay) */}
-        {isMenuOpen && (
-          <div className="fixed inset-0 top-0 bg-white z-[60] p-6 flex flex-col">
-            <div className="flex justify-between items-center mb-12">
-              <Link href="/" className="flex items-center gap-3" onClick={() => setIsMenuOpen(false)}>
-                <Image src="/logo.svg" alt="Logo" width={32} height={32} />
-                <span className="text-xl font-semibold tracking-tight">Haven Eye</span>
-              </Link>
-              <button onClick={() => setIsMenuOpen(false)}>
-                <X className="w-8 h-8" />
-              </button>
-            </div>
-            <nav className="flex flex-col gap-6">
-              <Link href="#services" className="text-2xl font-semibold" onClick={() => setIsMenuOpen(false)}>Services</Link>
-              <Link href="#eyewear" className="text-2xl font-semibold" onClick={() => setIsMenuOpen(false)}>Eyewear</Link>
-              <Link href="#faq" className="text-2xl font-semibold" onClick={() => setIsMenuOpen(false)}>FAQ</Link>
-              <div className="pt-8 flex flex-col gap-4">
-                <Button asChild size="lg" className="rounded-full w-full bg-[#304aec] text-white">
-                  <Link href="#book" onClick={() => setIsMenuOpen(false)}>Book Appointment</Link>
-                </Button>
-                <Button variant="outline" asChild size="lg" className="rounded-full w-full">
-                  <Link href="tel:0557767766">Call Us</Link>
-                </Button>
-              </div>
-            </nav>
-          </div>
-        )}
       </header>
     </div>
   );
