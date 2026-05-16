@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Geist, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-geist",
 });
 
-const instrumentSerif = Instrument_Serif({
-  weight: "400",
+const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
-  variable: "--font-instrument-serif",
+  variable: "--font-instrument-sans",
 });
 
 export const metadata: Metadata = {
@@ -24,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${instrumentSerif.variable}`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${geist.variable} ${instrumentSans.variable}`}>
         {children}
       </body>
     </html>
