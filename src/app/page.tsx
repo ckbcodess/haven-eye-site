@@ -14,7 +14,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
-import { ArrowRight, ChevronRight, Star, MapPin, Eye, Home as HomeIcon, Target, Microscope, Focus, Calendar, ShieldCheck } from "lucide-react";
+import { ArrowRight, ChevronRight, Star, Eye, Home as HomeIcon, Target, Microscope, Focus } from "lucide-react";
 
 const SERVICES = [
   {
@@ -138,8 +138,25 @@ const PRODUCTS_DATA = {
   ]
 };
 
+const HERO_IMAGES = [
+  "/hero-background.jpg",
+  "/hero1.jpeg",
+  "/hero2.jpeg",
+  "/hero3.jpeg",
+  "/hero4.jpeg",
+  "/hero5-new.jpeg"
+];
+
 export default function Home() {
   const [productCategory, setProductCategory] = useState<'eyewear' | 'hearing'>('eyewear');
+  const [heroImageIndex, setHeroImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [heroImageIndex]);
 
   return (
     <main className="min-h-screen bg-white font-sans text-[#12171a]">
@@ -150,6 +167,9 @@ export default function Home() {
         }
         .animate-progress {
           animation: progress 5s linear forwards;
+        }
+        .animate-progress-hero {
+          animation: progress 3s linear forwards;
         }
       `}</style>
       <Navbar />
@@ -165,7 +185,7 @@ export default function Home() {
       </svg>
 
       {/* Hero Section */}
-      <section className="relative pt-[150px] pb-8 md:pt-[180px] md:pb-12 overflow-hidden">
+      <section className="relative pt-[120px] pb-8 md:pt-[180px] md:pb-12 overflow-hidden">
         <div className="w-full max-w-[1400px] mx-auto px-4 md:px-[96px]">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-12 items-center">
             <div className="w-full max-w-[615px] mx-auto lg:mx-0 flex flex-col items-center lg:items-start text-center lg:text-left">
@@ -181,7 +201,7 @@ export default function Home() {
                 <Button asChild size="lg" className="rounded-full w-full sm:w-auto px-8 bg-[#304aec] hover:bg-[#304aec]/90 text-white text-[16px] font-medium h-[48px] shadow-sm">
                   <Link href="#book">Book appointment</Link>
                 </Button>
-                <Button variant="outline" asChild size="lg" className="rounded-full w-full sm:w-auto px-8 text-[16px] font-medium border-[#e4e4e7] h-[48px] bg-[#fefefe] hover:bg-slate-50 shadow-sm">
+                <Button variant="outline" asChild size="lg" className="rounded-full w-full sm:w-auto px-8 text-[16px] font-medium border-[#e4e4e7] h-[48px] bg-[#fefefe] shadow-sm">
                   <Link href="tel:0557767766">Call Us Today</Link>
                 </Button>
               </div>
@@ -231,13 +251,40 @@ export default function Home() {
             <div className="flex justify-center lg:justify-end mt-8 lg:mt-0 w-full">
               <div className="relative w-full aspect-square max-w-[582px]">
                 <div className="relative w-full h-full rounded-[24px] lg:rounded-[36px] overflow-hidden bg-slate-50">
-                  <Image
-                    src="/hero-background.jpg"
-                    alt="Modern Haven Eye Clinic Interior"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
+                  {HERO_IMAGES.map((src, idx) => (
+                    <Image
+                      key={src}
+                      src={src}
+                      alt={`Haven Eye Clinic Interior ${idx + 1}`}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      quality={85}
+                      className={cn(
+                        "object-cover transition-opacity duration-1000 ease-in-out",
+                        idx === heroImageIndex ? "opacity-100" : "opacity-0"
+                      )}
+                      priority={idx === 0}
+                    />
+                  ))}
+                </div>
+                {/* Carousel Indicators */}
+                <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2.5 z-10 px-4">
+                  {HERO_IMAGES.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setHeroImageIndex(i)}
+                      className="group relative h-[5px] w-10 rounded-full bg-white/20 overflow-hidden backdrop-blur-[2px] transition-all duration-300 hover:bg-white/40 shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)]"
+                      aria-label={`Go to slide ${i + 1}`}
+                    >
+                      <div
+                        className={cn(
+                          "h-full bg-white rounded-full transition-all duration-300",
+                          heroImageIndex === i ? "w-full animate-progress-hero" : "w-0"
+                        )}
+                        key={heroImageIndex === i ? `active-${i}` : `inactive-${i}`}
+                      />
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
@@ -400,7 +447,7 @@ function WhyHaven() {
               <div className="w-2 h-2 rounded-full bg-[#00218e]" />
               <span>Why Haven Eye</span>
             </div>
-            <h2 className="text-[28px] sm:text-3xl md:text-[48px] font-heading leading-[1.2] tracking-tight max-w-[627px]">
+            <h2 className="text-[28px] sm:text-3xl md:text-[48px] font-heading leading-[1.1] md:leading-[1.2] tracking-tight max-w-[627px]">
               Your vision is our primary focus.
             </h2>
           </div>
@@ -417,6 +464,8 @@ function WhyHaven() {
               src={REASONS[activeReasonIndex].image}
               alt={REASONS[activeReasonIndex].title}
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              quality={80}
               className="object-cover animate-in fade-in duration-500"
             />
           </div>
@@ -470,6 +519,9 @@ function WhyHaven() {
                     src={reason.image}
                     alt={reason.title}
                     fill
+                    sizes="(max-width: 768px) 85vw, 50vw"
+                    quality={80}
+                    loading="lazy"
                     className="object-cover"
                   />
                 </div>
@@ -511,7 +563,7 @@ function ProductsSection({ category, setCategory }: { category: 'eyewear' | 'hea
               <div className="w-2 h-2 rounded-full bg-[#00218e]" />
               <span>Our Products</span>
             </div>
-            <h2 className="text-[28px] md:text-[42px] font-heading font-medium leading-[1.2] tracking-[-1px] max-w-[800px] text-[#12171a]">
+            <h2 className="text-[28px] md:text-[42px] font-heading leading-[1.2] tracking-[-1px] max-w-[800px] text-[#12171a]">
               A look at our best selling products
             </h2>
           </div>
@@ -522,7 +574,7 @@ function ProductsSection({ category, setCategory }: { category: 'eyewear' | 'hea
                 onClick={() => setCategory('eyewear')}
                 className={cn(
                   "px-6 py-2.5 rounded-full text-[16px] font-semibold leading-none tracking-tight transition-all",
-                  category === 'eyewear' ? "bg-[#1e1e1e] text-white" : "text-[#12171a] opacity-30 hover:opacity-50"
+                  category === 'eyewear' ? "bg-[#1e1e1e] text-white" : "text-[#12171a] opacity-30 hover:text-[#304aec] hover:opacity-100"
                 )}
               >
                 Eyewear
@@ -531,7 +583,7 @@ function ProductsSection({ category, setCategory }: { category: 'eyewear' | 'hea
                 onClick={() => setCategory('hearing')}
                 className={cn(
                   "px-6 py-2.5 rounded-full text-[16px] font-semibold leading-none tracking-tight transition-all",
-                  category === 'hearing' ? "bg-[#1e1e1e] text-white" : "text-[#12171a] opacity-30 hover:opacity-50"
+                  category === 'hearing' ? "bg-[#1e1e1e] text-white" : "text-[#12171a] opacity-30 hover:text-[#304aec] hover:opacity-100"
                 )}
               >
                 Hearing Aids
@@ -549,6 +601,9 @@ function ProductsSection({ category, setCategory }: { category: 'eyewear' | 'hea
                     src={product.image} 
                     alt={product.title} 
                     fill 
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    quality={85}
+                    loading="lazy"
                     className="object-contain mix-blend-multiply" 
                   />
                 </div>
@@ -565,7 +620,7 @@ function ProductsSection({ category, setCategory }: { category: 'eyewear' | 'hea
         </div>
 
         <div className="flex justify-center mt-12">
-          <Button variant="outline" className="h-[44px] px-8 rounded-full bg-[#fefefe] border-[#e4e4e7] text-[15px] font-medium text-[#2e2e38] shadow-sm hover:bg-slate-50 hover:border-[#304aec]/20 transition-all">
+          <Button variant="outline" className="h-[44px] px-8 rounded-full bg-[#fefefe] border-[#e4e4e7] text-[15px] font-medium text-[#2e2e38] shadow-sm transition-all">
             View All Products
           </Button>
         </div>

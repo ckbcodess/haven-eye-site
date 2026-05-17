@@ -11,7 +11,8 @@ export default function Footer() {
               <Image 
                 src="/logo.svg" 
                 alt="Haven Eye Logo" 
-                fill
+                width={120}
+                height={120}
                 className="object-contain"
               />
             </div>
