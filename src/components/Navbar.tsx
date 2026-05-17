@@ -115,7 +115,7 @@ export default function Navbar() {
                   height={34}
                   priority
                 />
-                <span className="text-xl font-semibold tracking-tight text-[#12171a] hidden min-[400px]:block">Haven Eye</span>
+                <span className="text-xl font-semibold tracking-tight text-[#12171a] hidden md:block">Haven Eye</span>
               </Link>
             </div>
 
