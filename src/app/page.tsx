@@ -185,7 +185,7 @@ export default function Home() {
       </svg>
 
       {/* Hero Section */}
-      <section className="relative pt-[120px] pb-8 md:pt-[180px] md:pb-12 overflow-hidden">
+      <section className="relative pt-[160px] pb-8 md:pt-[180px] md:pb-12 overflow-hidden">
         <div className="w-full max-w-[1400px] mx-auto px-4 md:px-[96px]">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-12 items-center">
             <div className="w-full max-w-[615px] mx-auto lg:mx-0 flex flex-col items-center lg:items-start text-center lg:text-left">
