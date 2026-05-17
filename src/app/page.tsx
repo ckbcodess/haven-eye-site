@@ -462,7 +462,7 @@ function WhyHaven() {
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               quality={80}
-              className="object-cover animate-in fade-in duration-500"
+              className="object-contain animate-in fade-in duration-500"
             />
           </div>
           <div className="space-y-8 w-full max-w-[500px]">
@@ -518,7 +518,7 @@ function WhyHaven() {
                     sizes="(max-width: 768px) 85vw, 50vw"
                     quality={80}
                     loading="lazy"
-                    className="object-cover"
+                    className="object-contain"
                   />
                 </div>
                 <div className="space-y-2">
