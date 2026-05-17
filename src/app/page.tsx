@@ -454,7 +454,7 @@ function WhyHaven() {
 
         {/* Desktop View */}
         <div className="hidden lg:grid bg-[#faf9f6] rounded-2xl p-12 lg:grid-cols-[1fr_1fr] gap-20 items-center">
-          <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden shadow-sm transition-opacity duration-500">
+          <div className="relative w-full aspect-[5/6] rounded-xl overflow-hidden shadow-sm transition-opacity duration-500">
             <Image
               key={activeReasonIndex}
               src={REASONS[activeReasonIndex].image}
@@ -510,7 +510,7 @@ function WhyHaven() {
                 key={i} 
                 className="min-w-[85vw] snap-center bg-[#faf9f6] rounded-2xl p-6 flex flex-col gap-6"
               >
-                <div className="relative aspect-[4/5] w-full rounded-xl overflow-hidden">
+                <div className="relative aspect-[5/6] w-full rounded-xl overflow-hidden">
                   <Image
                     src={reason.image}
                     alt={reason.title}
