@@ -240,10 +240,6 @@ export default function Home() {
                       <p className="text-[11px] sm:text-[12px] md:text-[13px] text-[#5e6468] leading-[1.2] md:leading-[20.8px]">Local clinic</p>
                     </div>
                   </div>
-                  <div className="space-y-1 md:space-y-2 shrink-0">
-                    <div className="font-semibold text-[14px] sm:text-[16px] md:text-[18px] leading-none">10+ years</div>
-                    <p className="text-[11px] sm:text-[12px] md:text-[13px] text-[#5e6468] leading-[1.2] md:leading-[20.8px]">Experience</p>
-                  </div>
                 </div>
               </div>
             </div>
