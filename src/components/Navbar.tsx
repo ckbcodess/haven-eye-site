@@ -124,6 +124,11 @@ export default function Navbar() {
               <NavigationMenu>
                 <NavigationMenuList className="gap-1">
                   <NavigationMenuItem>
+                    <Link href="/services" className={cn(navigationMenuTriggerStyle(), "bg-transparent text-[15px] font-medium text-[#12171a]/70 hover:text-[#12171a]")}>
+                      Services
+                    </Link>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
                     <NavigationMenuTrigger className="bg-transparent hover:bg-transparent data-[state=open]:bg-transparent text-[15px] font-medium text-[#12171a]/70 hover:text-[#12171a]">
                       Products
                     </NavigationMenuTrigger>
@@ -215,11 +220,6 @@ export default function Navbar() {
                     </NavigationMenuContent>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <Link href="/services" className={cn(navigationMenuTriggerStyle(), "bg-transparent text-[15px] font-medium text-[#12171a]/70 hover:text-[#12171a]")}>
-                      Services
-                    </Link>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
                     <Link href="/contact" className={cn(navigationMenuTriggerStyle(), "bg-transparent text-[15px] font-medium text-[#12171a]/70 hover:text-[#12171a]")}>
                       Contact Us
                     </Link>
@@ -290,6 +290,14 @@ export default function Navbar() {
 
                     <div className="flex-1 overflow-y-auto p-4">
                       <nav className="flex flex-col">
+                        <Link
+                          href="/services"
+                          className="text-[20px] font-semibold py-4 border-b border-transparent"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Services
+                        </Link>
+
                         <MobileAccordion type="single" collapsible className="w-full">
                           <AccordionItem value="products" className="border-none">
                             <AccordionTrigger className="text-[20px] font-semibold hover:no-underline py-4">
@@ -377,14 +385,6 @@ export default function Navbar() {
                             </AccordionContent>
                           </AccordionItem>
                         </MobileAccordion>
-
-                        <Link
-                          href="/services"
-                          className="text-[20px] font-semibold py-4 border-b border-transparent"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          Services
-                        </Link>
                         <Link
                           href="/contact"
                           className="text-[20px] font-semibold py-4 border-b border-transparent"
