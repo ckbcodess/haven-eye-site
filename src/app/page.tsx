@@ -58,7 +58,7 @@ const REASONS = [
   {
     title: "Qualified specialists",
     description: "Optometrists with 10+ years experience handle every appointment.",
-    image: "/why_haven_specialists.png"
+    image: "/why_haven_specialists.jpeg"
   },
   {
     title: "Same-day bookings",
@@ -73,7 +73,7 @@ const REASONS = [
   {
     title: "Insurance accepted",
     description: "We work with all major providers, so you pay less out of pocket.",
-    image: "/why_haven_insurance.png"
+    image: "/why_haven_insurance.jpeg"
   }
 ];
 
@@ -454,7 +454,7 @@ function WhyHaven() {
 
         {/* Desktop View */}
         <div className="hidden lg:grid bg-[#faf9f6] rounded-2xl p-12 lg:grid-cols-[1fr_1fr] gap-20 items-center">
-          <div className="relative w-full aspect-[5/6] rounded-xl overflow-hidden shadow-sm transition-opacity duration-500">
+          <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-sm transition-opacity duration-500">
             <Image
               key={activeReasonIndex}
               src={REASONS[activeReasonIndex].image}
@@ -462,7 +462,7 @@ function WhyHaven() {
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               quality={80}
-              className="object-contain animate-in fade-in duration-500"
+              className="object-cover animate-in fade-in duration-500"
             />
           </div>
           <div className="space-y-8 w-full max-w-[500px]">
@@ -510,7 +510,7 @@ function WhyHaven() {
                 key={i} 
                 className="min-w-[85vw] snap-center bg-[#faf9f6] rounded-2xl p-6 flex flex-col gap-6"
               >
-                <div className="relative aspect-[5/6] w-full rounded-xl overflow-hidden">
+                <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden">
                   <Image
                     src={reason.image}
                     alt={reason.title}
@@ -518,7 +518,7 @@ function WhyHaven() {
                     sizes="(max-width: 768px) 85vw, 50vw"
                     quality={80}
                     loading="lazy"
-                    className="object-contain"
+                    className="object-cover"
                   />
                 </div>
                 <div className="space-y-2">
