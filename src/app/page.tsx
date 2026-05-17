@@ -68,7 +68,7 @@ const REASONS = [
   {
     title: "One-stop care",
     description: "Exam, prescription and eyewear fitting in a single visit.",
-    image: "/why_haven_care.png"
+    image: "/why_haven_care.jpeg"
   },
   {
     title: "Insurance accepted",
