@@ -291,7 +291,7 @@ export default function Home() {
       <WhyHaven />
 
       {/* Services Section */}
-      <section className="py-20 bg-[#fafdff]">
+      <section className="py-20 bg-[#f9f9f6]">
         <div className="container mx-auto px-6 md:px-[96px]">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8 mb-10 md:mb-16">
             <div className="space-y-4 md:space-y-6 text-left">
@@ -312,7 +312,7 @@ export default function Home() {
             {SERVICES.map((service, i) => (
               <Card key={i} className="border border-transparent shadow-[0_2px_10px_-4px_rgba(0,0,0,0.02)] bg-white p-6 md:p-8 flex flex-col rounded-[16px] hover:border-[#304aec]/15 hover:shadow-[0_8px_30px_-4px_rgba(48,74,236,0.08)] transition-all duration-400 ease-out group/service cursor-pointer">
                 <div className="space-y-6 flex-1">
-                  <div className="w-10 h-10 flex items-center justify-center bg-[#fafdff] text-[#304aec] rounded-lg transition-colors duration-400 ease-out group-hover/service:bg-[#304aec] group-hover/service:text-white">
+                  <div className="w-10 h-10 flex items-center justify-center bg-[#f9f9f6] text-[#304aec] rounded-lg transition-colors duration-400 ease-out group-hover/service:bg-[#304aec] group-hover/service:text-white">
                     {service.icon}
                   </div>
                   <div className="space-y-3">
