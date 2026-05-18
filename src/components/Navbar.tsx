@@ -77,7 +77,7 @@ export default function Navbar() {
   return (
     <div className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-      scrolled ? "bg-white/60 backdrop-blur-xl shadow-sm" : "bg-transparent"
+      scrolled ? "bg-white/60 backdrop-blur-xl" : "bg-transparent"
     )}>
       {promoVisible && (
         <div className="bg-[#12171a] text-white py-2 px-10 relative flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 overflow-hidden min-h-[40px]">
@@ -99,10 +99,7 @@ export default function Navbar() {
           </button>
         </div>
       )}
-      <header className={cn(
-        "transition-all duration-300",
-        scrolled ? "border-b border-[#e8ecee]/50" : "border-b border-transparent"
-      )}>
+      <header className="transition-all duration-300">
         <div className="container mx-auto px-4 md:px-[96px]">
           <div className="grid grid-cols-2 md:grid-cols-[200px_1fr_auto] lg:grid-cols-[250px_1fr_250px] h-[84px] items-center gap-4">
             {/* Logo Column */}
