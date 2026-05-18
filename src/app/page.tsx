@@ -480,12 +480,13 @@ function WhyHaven() {
   };
 
   return (
-    <section ref={containerRef} className="relative py-20 lg:py-0 lg:h-[300vh] bg-white">
-      {/* Top Spacer for Desktop Visual Padding */}
-      <div className="h-20 hidden lg:block" />
+    <>
+      <section ref={containerRef} className="relative py-20 lg:py-0 lg:h-[300vh] bg-white">
+        {/* Top Spacer for Desktop Visual Padding */}
+        <div className="h-20 hidden lg:block" />
 
-      {/* Desktop Sticky View */}
-      <div className="hidden lg:flex sticky top-0 h-screen w-full flex-col justify-center pt-24 pb-8 overflow-hidden">
+        {/* Desktop Sticky View - perfectly centered below the 84px sticky navbar */}
+        <div className="hidden lg:flex sticky top-[84px] h-[calc(100vh-84px)] w-full flex-col justify-center overflow-hidden">
         <div className="container mx-auto px-4 md:px-[96px]">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
@@ -557,9 +558,6 @@ function WhyHaven() {
         </div>
       </div>
 
-      {/* Bottom Spacer for Desktop Visual Padding */}
-      <div className="h-20 hidden lg:block" />
-
       {/* Mobile View (Standard vertical scroll with touch-friendly carousel) */}
       <div className="lg:hidden">
         <div className="container mx-auto px-4">
@@ -627,6 +625,10 @@ function WhyHaven() {
         </div>
       </div>
     </section>
+
+    {/* Generous Bottom Spacer for Desktop to separate it from the Services section */}
+    <div className="h-28 hidden lg:block bg-white" />
+    </>
   );
 }
 
