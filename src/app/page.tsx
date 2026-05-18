@@ -480,7 +480,10 @@ function WhyHaven() {
   };
 
   return (
-    <section ref={containerRef} className="relative lg:h-[300vh] bg-white p-0 lg:p-0">
+    <section ref={containerRef} className="relative py-20 lg:py-0 lg:h-[300vh] bg-white">
+      {/* Top Spacer for Desktop Visual Padding */}
+      <div className="h-20 hidden lg:block" />
+
       {/* Desktop Sticky View */}
       <div className="hidden lg:flex sticky top-0 h-screen w-full flex-col justify-center pt-24 pb-8 overflow-hidden">
         <div className="container mx-auto px-4 md:px-[96px]">
@@ -554,8 +557,11 @@ function WhyHaven() {
         </div>
       </div>
 
+      {/* Bottom Spacer for Desktop Visual Padding */}
+      <div className="h-20 hidden lg:block" />
+
       {/* Mobile View (Standard vertical scroll with touch-friendly carousel) */}
-      <div className="lg:hidden py-20">
+      <div className="lg:hidden">
         <div className="container mx-auto px-4">
           <div className="flex flex-col gap-6 mb-12">
             <div className="space-y-4">
