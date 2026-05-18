@@ -412,19 +412,52 @@ export default function Home() {
 
 function WhyHaven() {
   const [activeReasonIndex, setActiveReasonIndex] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Only auto-switch on desktop (lg breakpoint and above)
-    if (typeof window !== 'undefined' && window.innerWidth < 1024) return;
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      
+      // Calculate scroll progress through the pinned container on desktop
+      const totalRange = rect.height - window.innerHeight;
+      const current = -rect.top;
+      const progress = totalRange > 0 ? Math.max(0, Math.min(1, current / totalRange)) : 0;
+      
+      setScrollProgress(progress);
+      
+      const numReasons = REASONS.length;
+      const rawIndex = Math.floor(progress * numReasons);
+      const newIndex = Math.max(0, Math.min(numReasons - 1, rawIndex));
+      setActiveReasonIndex(newIndex);
+    };
 
-    const interval = setInterval(() => {
-      setActiveReasonIndex(prev => (prev + 1) % REASONS.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [activeReasonIndex]);
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Trigger initial check
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+  const handleReasonClick = (index: number) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const sectionTop = rect.top + scrollTop;
+    const totalRange = rect.height - window.innerHeight;
+    
+    // Position scroll progress in the middle of target reason's slot
+    const targetProgress = (index + 0.5) / REASONS.length;
+    const targetScroll = sectionTop + targetProgress * totalRange;
+    
+    window.scrollTo({
+      top: targetScroll,
+      behavior: 'smooth'
+    });
+  };
+
+  const handleMobileScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const container = e.currentTarget;
     const scrollPosition = container.scrollLeft;
     const width = container.offsetWidth;
@@ -434,114 +467,156 @@ function WhyHaven() {
     }
   };
 
-  return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4 md:px-[96px]">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-          <div className="space-y-6">
-            <div className="flex items-center gap-3 text-[#00218e] font-medium text-[16px] md:text-[20px]">
-              <div className="w-2 h-2 rounded-full bg-[#00218e]" />
-              <span>Why Haven Eye</span>
-            </div>
-            <h2 className="text-[28px] sm:text-3xl md:text-[48px] font-heading leading-[1.1] md:leading-[1.2] tracking-tight max-w-[627px]">
-              Your vision is our primary focus.
-            </h2>
-          </div>
-          <p className="text-base sm:text-lg md:text-[20px] text-[#5e6468] leading-relaxed max-w-[465px]">
-            From routine eye exams to specialised treatments, every service is bookable online.
-          </p>
-        </div>
+  const getProgressForIndex = (index: number) => {
+    const numReasons = REASONS.length;
+    const range = 1 / numReasons;
+    const start = index * range;
+    const end = (index + 1) * range;
+    
+    if (scrollProgress <= start) return 0;
+    if (scrollProgress >= end) return 100;
+    
+    return ((scrollProgress - start) / range) * 100;
+  };
 
-        {/* Desktop View */}
-        <div className="hidden lg:grid bg-[#faf9f6] rounded-2xl p-12 lg:grid-cols-[1fr_1fr] gap-20 items-center">
-          <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-sm transition-opacity duration-500">
-            <Image
-              key={activeReasonIndex}
-              src={REASONS[activeReasonIndex].image}
-              alt={REASONS[activeReasonIndex].title}
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              quality={80}
-              className="object-cover animate-in fade-in duration-500"
-            />
+  return (
+    <section ref={containerRef} className="relative lg:h-[300vh] bg-white p-0 lg:p-0">
+      {/* Desktop Sticky View */}
+      <div className="hidden lg:flex sticky top-0 h-screen w-full flex-col justify-center pt-24 pb-8 overflow-hidden">
+        <div className="container mx-auto px-4 md:px-[96px]">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 text-[#00218e] font-medium text-[16px] md:text-[20px]">
+                <div className="w-2 h-2 rounded-full bg-[#00218e]" />
+                <span>Why Haven Eye</span>
+              </div>
+              <h2 className="text-[28px] sm:text-3xl md:text-[48px] font-heading leading-[1.1] md:leading-[1.2] tracking-tight max-w-[627px]">
+                Your vision is our primary focus.
+              </h2>
+            </div>
+            <p className="text-base sm:text-lg md:text-[20px] text-[#5e6468] leading-relaxed max-w-[465px]">
+              From routine eye exams to specialised treatments, every service is bookable online.
+            </p>
           </div>
-          <div className="space-y-8 w-full max-w-[500px]">
-            {REASONS.map((reason, i) => {
-              const isActive = i === activeReasonIndex;
-              return (
-                <div
+
+          {/* Core Interactive Block */}
+          <div className="bg-[#faf9f6] rounded-2xl p-12 grid grid-cols-[1.1fr_0.9fr] gap-20 items-center min-h-[480px]">
+            {/* Left Column: Stacked Image Crossfade */}
+            <div className="relative w-full aspect-square max-w-[420px] rounded-xl overflow-hidden shadow-sm mx-auto">
+              {REASONS.map((reason, i) => (
+                <Image
                   key={i}
-                  className="relative pb-6 transition-all cursor-pointer group"
-                  onClick={() => setActiveReasonIndex(i)}
+                  src={reason.image}
+                  alt={reason.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  quality={80}
+                  className={cn(
+                    "object-cover transition-opacity duration-500 ease-in-out absolute inset-0",
+                    activeReasonIndex === i ? "opacity-100 z-10" : "opacity-0 z-0"
+                  )}
+                />
+              ))}
+            </div>
+
+            {/* Right Column: Clickable reasons list with smooth indicator bars */}
+            <div className="space-y-8 w-full max-w-[500px]">
+              {REASONS.map((reason, i) => {
+                const isActive = i === activeReasonIndex;
+                return (
+                  <div
+                    key={i}
+                    className="relative pb-6 transition-all cursor-pointer group"
+                    onClick={() => handleReasonClick(i)}
+                  >
+                    <div className={cn(
+                      "space-y-2 transition-opacity duration-500",
+                      isActive ? "opacity-100" : "opacity-40 group-hover:opacity-70"
+                    )}>
+                      <h4 className="text-[20px] font-medium text-[#12171a]">{reason.title}</h4>
+                      <p className="text-[#5e6468] text-[15px] leading-relaxed">
+                        {reason.description}
+                      </p>
+                    </div>
+                    {/* Persistent scroll progress line */}
+                    <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#12171a]/10 overflow-hidden rounded-full">
+                      <div
+                        className="h-full bg-[#12171a] transition-all duration-100 ease-out"
+                        style={{ width: `${getProgressForIndex(i)}%` }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile View (Standard vertical scroll with touch-friendly carousel) */}
+      <div className="lg:hidden py-20">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col gap-6 mb-12">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 text-[#00218e] font-medium text-[16px]">
+                <div className="w-2 h-2 rounded-full bg-[#00218e]" />
+                <span>Why Haven Eye</span>
+              </div>
+              <h2 className="text-[28px] sm:text-3xl font-heading leading-[1.1] tracking-tight">
+                Your vision is our primary focus.
+              </h2>
+            </div>
+            <p className="text-base text-[#5e6468] leading-relaxed">
+              From routine eye exams to specialised treatments, every service is bookable online.
+            </p>
+          </div>
+
+          <div className="-mx-4">
+            <div 
+              ref={scrollRef}
+              onScroll={handleMobileScroll}
+              className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 px-4 pb-8"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {REASONS.map((reason, i) => (
+                <div 
+                  key={i} 
+                  className="min-w-[85vw] snap-center bg-[#faf9f6] rounded-2xl p-6 flex flex-col gap-6"
                 >
-                  <div className={cn(
-                    "space-y-2 transition-opacity duration-500",
-                    isActive ? "opacity-100" : "opacity-40 group-hover:opacity-70"
-                  )}>
-                    <h4 className="text-[20px] font-medium text-[#12171a]">{reason.title}</h4>
-                    <p className="text-[#5e6468] text-[15px] leading-relaxed">
+                  <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden">
+                    <Image
+                      src={reason.image}
+                      alt={reason.title}
+                      fill
+                      sizes="(max-width: 768px) 85vw, 50vw"
+                      quality={80}
+                      loading="lazy"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="text-[18px] font-medium text-[#12171a]">{reason.title}</h4>
+                    <p className="text-[#5e6468] text-[14px] leading-relaxed">
                       {reason.description}
                     </p>
                   </div>
-                  {isActive && (
-                    <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#12171a]/10 overflow-hidden rounded-full">
-                      <div
-                        key={activeReasonIndex}
-                        className="h-full bg-[#12171a] animate-progress"
-                      />
-                    </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Mobile Carousel Indicators */}
+            <div className="flex justify-center gap-2 mt-2">
+              {REASONS.map((_, i) => (
+                <div 
+                  key={i}
+                  className={cn(
+                    "h-1.5 rounded-full transition-all duration-300",
+                    activeReasonIndex === i ? "w-6 bg-[#304aec]" : "w-1.5 bg-[#e2e8f0]"
                   )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Mobile Carousel */}
-        <div className="lg:hidden -mx-4">
-          <div 
-            ref={scrollRef}
-            onScroll={handleScroll}
-            className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 px-4 pb-8"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {REASONS.map((reason, i) => (
-              <div 
-                key={i} 
-                className="min-w-[85vw] snap-center bg-[#faf9f6] rounded-2xl p-6 flex flex-col gap-6"
-              >
-                <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden">
-                  <Image
-                    src={reason.image}
-                    alt={reason.title}
-                    fill
-                    sizes="(max-width: 768px) 85vw, 50vw"
-                    quality={80}
-                    loading="lazy"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <h4 className="text-[18px] md:text-[20px] font-medium text-[#12171a]">{reason.title}</h4>
-                  <p className="text-[#5e6468] text-[14px] md:text-[15px] leading-relaxed">
-                    {reason.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          {/* Carousel Indicators */}
-          <div className="flex justify-center gap-2 mt-2">
-            {REASONS.map((_, i) => (
-              <div 
-                key={i}
-                className={cn(
-                  "h-1.5 rounded-full transition-all duration-300",
-                  activeReasonIndex === i ? "w-6 bg-[#304aec]" : "w-1.5 bg-[#e2e8f0]"
-                )}
-              />
-            ))}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
