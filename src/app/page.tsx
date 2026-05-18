@@ -572,10 +572,10 @@ function WhyHaven() {
                     <div
                       key={i}
                       className={cn(
-                        "transition-all duration-500 [transition-timing-function:cubic-bezier(0.25,1.15,0.5,1)] cursor-pointer group flex items-start gap-4 px-6 py-5",
+                        "transition-all duration-500 [transition-timing-function:cubic-bezier(0.25,1.15,0.5,1)] cursor-pointer group flex items-start gap-4 px-6 py-5 rounded-2xl",
                         isActive 
-                          ? "bg-white rounded-2xl shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)]" 
-                          : "bg-transparent opacity-40 hover:opacity-75"
+                          ? "bg-white shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)]" 
+                          : "bg-transparent opacity-40 hover:opacity-75 hover:bg-white/50"
                       )}
                       onClick={() => handleReasonClick(i)}
                     >
